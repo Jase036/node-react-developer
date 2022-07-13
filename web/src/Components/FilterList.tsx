@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useParams } from 'react-router-dom';
 import { Repository } from '../Models/Repo';
 import Repo from './Repo';
 
@@ -6,14 +7,12 @@ interface RepoProps {
   repos: Repository[];
 }
 
-const RepoList: FC<RepoProps> = ({ repos }) => {
+const FilterList: FC<RepoProps> = ({ repos }) => {
+  const { language } = useParams();
   return (
     <div>
       {repos
-        .sort(
-          (a: Repository, b: Repository) =>
-            +new Date(b.created_at) - +new Date(a.created_at)
-        )
+        .filter((repo: Repository) => repo.language === language)
         .map((repo: Repository) => (
           <Repo key={repo.id} repo={repo} />
         ))}
@@ -21,4 +20,4 @@ const RepoList: FC<RepoProps> = ({ repos }) => {
   );
 };
 
-export default RepoList;
+export default FilterList;
