@@ -1,19 +1,15 @@
-import { useEffect, useState, VFC } from 'react';
+import { FC } from 'react';
 import { Repository } from '../Models/Repo';
 import Repo from './Repo';
 
-const RepoList: VFC = () => {
-  const [repoData, setRepoData] = useState([]);
+interface RepoProps {
+  repos: Repository[];
+}
 
-  useEffect(() => {
-    fetch('/repos/')
-      .then((res) => res.json())
-      .then((data) => setRepoData(data));
-  }, []);
-
+const RepoList: FC<RepoProps> = ({ repos }) => {
   return (
     <div>
-      {repoData.map((repo: Repository) => (
+      {repos.map((repo: Repository) => (
         <Repo key={repo.id} repo={repo} />
       ))}
     </div>
