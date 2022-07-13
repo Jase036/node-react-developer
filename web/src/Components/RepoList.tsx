@@ -9,14 +9,9 @@ interface RepoProps {
 const RepoList: FC<RepoProps> = ({ repos }) => {
   return (
     <div>
-      {repos
-        .sort(
-          (a: Repository, b: Repository) =>
-            +new Date(b.created_at) - +new Date(a.created_at)
-        )
-        .map((repo: Repository) => (
-          <Repo key={repo.id} repo={repo} />
-        ))}
+      {repos.map((repo: Repository) => (
+        <Repo key={repo.id} repo={repo} />
+      ))}
     </div>
   );
 };

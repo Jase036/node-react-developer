@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { Repository } from '../Models/Repo';
 
@@ -11,6 +11,7 @@ const Filters: FC<RepoProps> = ({ repos }) => {
   const languages: string[] = repos
     .map((repo: Repository) => repo.language)
     .filter((language, index, self) => self.indexOf(language) === index);
+  //target in tsconfig indicates ES5 so mapped and filtered instead of spreading a new Set from the map.
 
   return (
     <FilterWrapper>
@@ -20,6 +21,7 @@ const Filters: FC<RepoProps> = ({ repos }) => {
           {language}
         </StyledLink>
       ))}
+      <StyledLink to={`/`}>View All</StyledLink>
     </FilterWrapper>
   );
 };
@@ -34,7 +36,7 @@ const FilterWrapper = styled.div`
 const FilterLabel = styled.p`
   margin: 15px 10px;
 `;
-const StyledLink = styled(Link)`
+const StyledLink = styled(NavLink)`
   margin: 40px 10px 10px 10px;
   padding: 5px;
   border-radius: 5px;
@@ -42,7 +44,8 @@ const StyledLink = styled(Link)`
   background-color: #ddd;
   color: #000;
 
-  &:hover {
+  &:hover,
+  &.active {
     background-color: #fff;
   }
 `;
